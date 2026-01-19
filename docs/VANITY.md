@@ -107,7 +107,7 @@ Find addresses containing only numbers (0-9).
 
 ```bash
 python eth_toolkit.py vanity --numbers
-# Result: 0x1234567890123456789012345678901234567890
+# Result: 0x1234123451234567890d91123456789012345678
 ```
 
 ### Mirror Pattern

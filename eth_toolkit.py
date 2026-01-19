@@ -352,8 +352,10 @@ def sign_transaction(
     Returns:
         Dictionary with signed transaction details
     """
+    from eth_utils import to_checksum_address
+    
     tx = {
-        "to": to,
+        "to": to_checksum_address(to),
         "value": value,
         "gas": gas,
         "nonce": nonce,
@@ -466,7 +468,7 @@ def sign_typed_data(private_key: str, domain: dict, types: dict, message: dict, 
         "r": hex(signed.r),
         "s": hex(signed.s),
         "v": signed.v,
-        "message_hash": signed.messageHash.hex(),
+        "message_hash": signed.message_hash.hex(),
         "domain": domain,
         "primary_type": primary_type
     }
@@ -1172,14 +1174,17 @@ def cmd_transaction(args):
         sys.exit(1)
     
     # Parse value (support wei, gwei, ether)
-    value = args.value or 0
-    if isinstance(value, str):
-        if value.endswith('ether'):
-            value = int(float(value.replace('ether', '').strip()) * 10**18)
-        elif value.endswith('gwei'):
-            value = int(float(value.replace('gwei', '').strip()) * 10**9)
-        else:
-            value = int(value)
+    if args.ether is not None:
+        value = int(args.ether * 10**18)
+    else:
+        value = args.value or 0
+        if isinstance(value, str):
+            if value.endswith('ether'):
+                value = int(float(value.replace('ether', '').strip()) * 10**18)
+            elif value.endswith('gwei'):
+                value = int(float(value.replace('gwei', '').strip()) * 10**9)
+            else:
+                value = int(value)
     
     try:
         result = sign_transaction(
@@ -1445,6 +1450,7 @@ Examples:
     tx_parser.add_argument('--chain-id', type=int, default=1, help='Chain ID (1=mainnet)')
     tx_parser.add_argument('--key', '-k', required=True, help='Private key')
     tx_parser.add_argument('--output', '-o', help='Save signed tx to file')
+    tx_parser.add_argument('--verbose', '-v', action='store_true', help='Show r, s, v values')
     
     # Typed Data command (EIP-712)
     typed_parser = subparsers.add_parser('typed-data', help='EIP-712 typed data signing')
@@ -1454,6 +1460,8 @@ Examples:
     typed_parser.add_argument('--key', '-k', help='Private key (for signing)')
     typed_parser.add_argument('--signature', '-s', help='Signature (for verification)')
     typed_parser.add_argument('--address', '-a', help='Expected signer (for verification)')
+    typed_parser.add_argument('--verbose', '-v', action='store_true', help='Show r, s, v values')
+    typed_parser.add_argument('--output', '-o', help='Save result to file')
     
     args = parser.parse_args()
     
