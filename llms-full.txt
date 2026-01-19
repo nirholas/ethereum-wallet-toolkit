@@ -506,3 +506,4 @@ A: Use all CPU cores (`--workers` flag) and keep patterns short (4-5 chars).
 
 *This document is machine-readable and designed for LLM/AI consumption. Last updated: January 2026.*
 
+
