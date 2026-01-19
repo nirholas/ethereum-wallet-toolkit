@@ -4,3 +4,4 @@
 # Account management, key generation, signing, HD wallets
 # Includes dependencies: eth-keys, eth-rlp, eth-hash, rlp
 eth-account>=0.10.0
+
