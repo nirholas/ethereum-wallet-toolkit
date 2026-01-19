@@ -430,3 +430,4 @@ The toolkit provides a command-line interface with the following commands:
 | `validate` | Validate address or private key |
 
 Run `python eth_toolkit.py <command> --help` for detailed usage.
+
