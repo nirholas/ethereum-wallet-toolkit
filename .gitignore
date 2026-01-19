@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+
+# Secrets and Keys (CRITICAL)
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+*.secret
+
+# Keystore and Wallet Files (CRITICAL)
+keystore*.json
+wallet*.json
+*.keystore
+*_keystore.json
+encrypted_*.json
+
+# Project
+*.log
+*.tmp
+*.bak
