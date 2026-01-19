@@ -129,19 +129,55 @@ textarea { min-height: 100px; resize: vertical; }
 <div class="row">
 <div class="form-group">
 <label>Prefix (after 0x)</label>
-<input type="text" id="vanity-prefix" placeholder="e.g., dead">
+<input type="text" id="vanity-prefix" placeholder="e.g., dead" maxlength="10">
 </div>
 <div class="form-group">
 <label>Suffix</label>
-<input type="text" id="vanity-suffix" placeholder="e.g., beef">
+<input type="text" id="vanity-suffix" placeholder="e.g., beef" maxlength="10">
 </div>
 </div>
-<div class="checkbox-group" style="margin-bottom: 1rem;">
-<input type="checkbox" id="vanity-case" checked>
-<label for="vanity-case" style="margin: 0;">Case insensitive</label>
+<div class="row">
+<div class="form-group">
+<label>Contains</label>
+<input type="text" id="vanity-contains" placeholder="Address must contain this">
+</div>
+<div class="form-group">
+<label>Regex Pattern</label>
+<input type="text" id="vanity-regex" placeholder="e.g., ^dead.*beef$">
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem;margin:1rem 0;">
+<div class="checkbox-group"><input type="checkbox" id="vanity-case"><label for="vanity-case">Case-sensitive (EIP-55)</label></div>
+<div class="checkbox-group"><input type="checkbox" id="vanity-letters"><label for="vanity-letters">Letters only (a-f)</label></div>
+<div class="checkbox-group"><input type="checkbox" id="vanity-numbers"><label for="vanity-numbers">Numbers only (0-9)</label></div>
+<div class="checkbox-group"><input type="checkbox" id="vanity-mirror"><label for="vanity-mirror">Mirror/Palindrome</label></div>
+<div class="checkbox-group"><input type="checkbox" id="vanity-doubles"><label for="vanity-doubles">Leading doubles (aa, bb...)</label></div>
+<div class="checkbox-group"><input type="checkbox" id="vanity-zeros"><label for="vanity-zeros">Many zeros (8+)</label></div>
+<div class="checkbox-group"><input type="checkbox" id="vanity-contract"><label for="vanity-contract">Contract address</label></div>
+</div>
+<div class="row">
+<div class="form-group">
+<label>Leading Character</label>
+<input type="text" id="vanity-leading" placeholder="e.g., 0" maxlength="1">
+</div>
+<div class="form-group">
+<label>Leading Count</label>
+<input type="number" id="vanity-leading-count" value="4" min="1" max="20">
+</div>
+</div>
+<div class="row">
+<div class="form-group">
+<label>Find Count</label>
+<input type="number" id="vanity-count" value="1" min="1" max="100">
+</div>
+<div class="form-group">
+<label>Estimated Difficulty</label>
+<input type="text" id="vanity-difficulty" readonly placeholder="Enter criteria above">
+</div>
 </div>
 <button class="btn" onclick="startVanity()">Start Search</button>
 <button class="btn btn-secondary" onclick="stopVanity()">Stop</button>
+<button class="btn btn-secondary" onclick="exportVanityResults()" id="vanity-export-btn" disabled>Export Results</button>
 <div id="vanity-result" class="result hidden"></div>
 </div>
 <div class="section">
