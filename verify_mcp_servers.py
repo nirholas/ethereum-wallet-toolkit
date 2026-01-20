@@ -488,3 +488,4 @@ if failed_tests == 0:
 else:
     print(f"\n⚠️  {failed_tests} test(s) failed. Please review the output above.")
     sys.exit(1)
+
