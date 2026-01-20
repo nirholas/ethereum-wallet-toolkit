@@ -4,11 +4,11 @@ Security Audit Prompts
 Provides guided workflows for security auditing keys and signatures.
 """
 
-from mcp.server import Server
+from mcp.server.fastmcp import FastMCP
 from mcp.types import PromptMessage, TextContent
 
 
-def register_security_prompts(server: Server) -> None:
+def register_security_prompts(server: FastMCP) -> None:
     """Register security audit prompts."""
     
     @server.prompt()

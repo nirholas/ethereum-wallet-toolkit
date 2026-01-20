@@ -177,7 +177,7 @@ Brain wallets (deriving keys from memorable phrases) are extremely vulnerable:
 """
 
 
-def register_patterns_resources(server: Server) -> None:
+def register_patterns_resources(server: FastMCP) -> None:
     """Register address patterns and weak keys resources."""
     
     @server.resource("validation://address-patterns")

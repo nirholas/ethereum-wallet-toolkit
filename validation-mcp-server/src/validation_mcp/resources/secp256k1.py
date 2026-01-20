@@ -85,7 +85,7 @@ Signatures must have s ≤ n/2 (low-s requirement).
 """
 
 
-def register_secp256k1_resources(server: Server) -> None:
+def register_secp256k1_resources(server: FastMCP) -> None:
     """Register secp256k1 constants resources."""
     
     @server.resource("validation://secp256k1-constants")

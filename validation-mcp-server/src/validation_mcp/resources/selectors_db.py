@@ -105,7 +105,7 @@ selector = 0xa9059cbb
 """
 
 
-def register_selectors_db_resources(server: Server) -> None:
+def register_selectors_db_resources(server: FastMCP) -> None:
     """Register function selectors database resources."""
     
     @server.resource("validation://function-selectors-db")
