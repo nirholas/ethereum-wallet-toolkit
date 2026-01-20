@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 license = "MIT"
 keywords = ["ethereum", "mcp", "validation", "checksum", "eip55"]
 authors = [
-    { name = "nirholas", email = "nich@ethereum.tools" }
+    { name = "nirholas", email = "nirholas@users.noreply.github.com" }
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
