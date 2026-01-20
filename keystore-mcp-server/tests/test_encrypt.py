@@ -12,7 +12,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from keystore_mcp.crypto.kdf import derive_key_scrypt, derive_key_pbkdf2
-from keystore_mcp.crypto.cipher import encrypt_aes_128_ctr, decrypt_aes_128_ctr
+from keystore_mcp.crypto.cipher import encrypt_aes_ctr, decrypt_aes_ctr
 from keystore_mcp.crypto.mac import compute_mac, verify_mac
 
 
@@ -27,11 +27,11 @@ class TestKDF:
         derived_key, params = derive_key_scrypt(password, salt)
         
         assert len(derived_key) == 32
-        assert params["n"] == 262144
-        assert params["r"] == 8
-        assert params["p"] == 1
-        assert params["dklen"] == 32
-        assert params["salt"] == salt.hex()
+        assert params.n == 262144
+        assert params.r == 8
+        assert params.p == 1
+        assert params.dklen == 32
+        assert params.salt == salt
     
     def test_derive_key_scrypt_custom_params(self):
         """Test scrypt key derivation with custom parameters."""
@@ -43,7 +43,7 @@ class TestKDF:
         )
         
         assert len(derived_key) == 32
-        assert params["n"] == 16384
+        assert params.n == 16384
     
     def test_derive_key_scrypt_deterministic(self):
         """Test that scrypt produces same key for same inputs."""
@@ -63,9 +63,9 @@ class TestKDF:
         derived_key, params = derive_key_pbkdf2(password, salt)
         
         assert len(derived_key) == 32
-        assert params["c"] == 262144
-        assert params["prf"] == "hmac-sha256"
-        assert params["dklen"] == 32
+        assert params.c == 262144
+        assert params.prf == "hmac-sha256"
+        assert params.dklen == 32
     
     def test_derive_key_pbkdf2_deterministic(self):
         """Test that PBKDF2 produces same key for same inputs."""
@@ -86,8 +86,8 @@ class TestCipher:
         key = os.urandom(16)  # AES-128 key
         plaintext = bytes.fromhex("1234567890abcdef" * 2)  # 32-byte private key
         
-        ciphertext, iv = encrypt_aes_128_ctr(plaintext, key)
-        decrypted = decrypt_aes_128_ctr(ciphertext, key, iv)
+        ciphertext, iv = encrypt_aes_ctr(plaintext, key)
+        decrypted = decrypt_aes_ctr(ciphertext, key, iv)
         
         assert decrypted == plaintext
     
@@ -96,8 +96,8 @@ class TestCipher:
         key = os.urandom(16)
         plaintext = bytes.fromhex("1234567890abcdef" * 2)
         
-        ciphertext1, iv1 = encrypt_aes_128_ctr(plaintext, key)
-        ciphertext2, iv2 = encrypt_aes_128_ctr(plaintext, key)
+        ciphertext1, iv1 = encrypt_aes_ctr(plaintext, key)
+        ciphertext2, iv2 = encrypt_aes_ctr(plaintext, key)
         
         # Different IVs should produce different ciphertexts
         assert iv1 != iv2
@@ -109,8 +109,8 @@ class TestCipher:
         key2 = os.urandom(16)
         plaintext = bytes.fromhex("1234567890abcdef" * 2)
         
-        ciphertext, iv = encrypt_aes_128_ctr(plaintext, key1)
-        decrypted = decrypt_aes_128_ctr(ciphertext, key2, iv)
+        ciphertext, iv = encrypt_aes_ctr(plaintext, key1)
+        decrypted = decrypt_aes_ctr(ciphertext, key2, iv)
         
         assert decrypted != plaintext
     
@@ -119,7 +119,7 @@ class TestCipher:
         key = os.urandom(16)
         plaintext = bytes.fromhex("1234567890abcdef" * 2)
         
-        ciphertext, _ = encrypt_aes_128_ctr(plaintext, key)
+        ciphertext, _ = encrypt_aes_ctr(plaintext, key)
         
         assert len(ciphertext) == len(plaintext)
 
@@ -195,7 +195,7 @@ class TestKeystoreEncryption:
         
         # Encrypt
         encryption_key = derived_key[:16]
-        ciphertext, iv = encrypt_aes_128_ctr(private_key, encryption_key)
+        ciphertext, iv = encrypt_aes_ctr(private_key, encryption_key)
         
         # Compute MAC
         mac = compute_mac(derived_key, ciphertext)
@@ -210,7 +210,7 @@ class TestKeystoreEncryption:
         
         # Decrypt
         encryption_key2 = derived_key2[:16]
-        decrypted = decrypt_aes_128_ctr(ciphertext, encryption_key2, iv)
+        decrypted = decrypt_aes_ctr(ciphertext, encryption_key2, iv)
         
         assert decrypted == private_key
     
@@ -224,7 +224,7 @@ class TestKeystoreEncryption:
         # Encrypt with correct password
         derived_key, _ = derive_key_scrypt(password, salt, n=16384)
         encryption_key = derived_key[:16]
-        ciphertext, iv = encrypt_aes_128_ctr(private_key, encryption_key)
+        ciphertext, iv = encrypt_aes_ctr(private_key, encryption_key)
         mac = compute_mac(derived_key, ciphertext)
         
         # Try to decrypt with wrong password

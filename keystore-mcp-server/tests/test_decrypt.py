@@ -11,7 +11,7 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from keystore_mcp.crypto.kdf import derive_key_scrypt, derive_key_pbkdf2
-from keystore_mcp.crypto.cipher import encrypt_aes_128_ctr, decrypt_aes_128_ctr
+from keystore_mcp.crypto.cipher import encrypt_aes_ctr, decrypt_aes_ctr
 from keystore_mcp.crypto.mac import compute_mac, verify_mac
 
 
@@ -30,7 +30,7 @@ class TestDecryptionBasics:
         # Encrypt (with low params for speed)
         derived_key, kdf_params = derive_key_scrypt(password, salt, n=16384)
         encryption_key = derived_key[:16]
-        ciphertext, iv = encrypt_aes_128_ctr(private_key, encryption_key)
+        ciphertext, iv = encrypt_aes_ctr(private_key, encryption_key)
         mac = compute_mac(derived_key, ciphertext)
         
         # Decrypt
@@ -40,7 +40,7 @@ class TestDecryptionBasics:
         assert verify_mac(derived_key2, ciphertext, mac)
         
         # Decrypt
-        decrypted = decrypt_aes_128_ctr(ciphertext, derived_key2[:16], iv)
+        decrypted = decrypt_aes_ctr(ciphertext, derived_key2[:16], iv)
         
         assert decrypted == private_key
     
@@ -53,13 +53,13 @@ class TestDecryptionBasics:
         # Encrypt with PBKDF2 (low iterations for speed)
         derived_key, _ = derive_key_pbkdf2(password, salt, iterations=10000)
         encryption_key = derived_key[:16]
-        ciphertext, iv = encrypt_aes_128_ctr(private_key, encryption_key)
+        ciphertext, iv = encrypt_aes_ctr(private_key, encryption_key)
         mac = compute_mac(derived_key, ciphertext)
         
         # Decrypt
         derived_key2, _ = derive_key_pbkdf2(password, salt, iterations=10000)
         assert verify_mac(derived_key2, ciphertext, mac)
-        decrypted = decrypt_aes_128_ctr(ciphertext, derived_key2[:16], iv)
+        decrypted = decrypt_aes_ctr(ciphertext, derived_key2[:16], iv)
         
         assert decrypted == private_key
 
@@ -74,7 +74,7 @@ class TestPasswordVerification:
         salt = os.urandom(32)
         
         derived_key, _ = derive_key_scrypt(password, salt, n=16384)
-        ciphertext, _ = encrypt_aes_128_ctr(private_key, derived_key[:16])
+        ciphertext, _ = encrypt_aes_ctr(private_key, derived_key[:16])
         mac = compute_mac(derived_key, ciphertext)
         
         # Verify with same password
@@ -89,7 +89,7 @@ class TestPasswordVerification:
         salt = os.urandom(32)
         
         derived_key, _ = derive_key_scrypt(correct_password, salt, n=16384)
-        ciphertext, _ = encrypt_aes_128_ctr(private_key, derived_key[:16])
+        ciphertext, _ = encrypt_aes_ctr(private_key, derived_key[:16])
         mac = compute_mac(derived_key, ciphertext)
         
         # Try to verify with wrong password
@@ -104,7 +104,7 @@ class TestPasswordVerification:
         salt = os.urandom(32)
         
         derived_key, _ = derive_key_scrypt(password, salt, n=16384)
-        ciphertext, _ = encrypt_aes_128_ctr(private_key, derived_key[:16])
+        ciphertext, _ = encrypt_aes_ctr(private_key, derived_key[:16])
         mac = compute_mac(derived_key, ciphertext)
         
         # Verify with similar password should fail
@@ -124,25 +124,25 @@ class TestPasswordChange:
         # Encrypt with old password
         old_salt = os.urandom(32)
         old_derived_key, _ = derive_key_scrypt(old_password, old_salt, n=16384)
-        ciphertext, iv = encrypt_aes_128_ctr(private_key, old_derived_key[:16])
+        ciphertext, iv = encrypt_aes_ctr(private_key, old_derived_key[:16])
         old_mac = compute_mac(old_derived_key, ciphertext)
         
         # Decrypt with old password
         derived_key_check, _ = derive_key_scrypt(old_password, old_salt, n=16384)
         assert verify_mac(derived_key_check, ciphertext, old_mac)
-        decrypted_key = decrypt_aes_128_ctr(ciphertext, derived_key_check[:16], iv)
+        decrypted_key = decrypt_aes_ctr(ciphertext, derived_key_check[:16], iv)
         
         # Re-encrypt with new password
         new_salt = os.urandom(32)
         new_derived_key, _ = derive_key_scrypt(new_password, new_salt, n=16384)
-        new_ciphertext, new_iv = encrypt_aes_128_ctr(decrypted_key, new_derived_key[:16])
+        new_ciphertext, new_iv = encrypt_aes_ctr(decrypted_key, new_derived_key[:16])
         new_mac = compute_mac(new_derived_key, new_ciphertext)
         
         # Verify new keystore works
         verify_key, _ = derive_key_scrypt(new_password, new_salt, n=16384)
         assert verify_mac(verify_key, new_ciphertext, new_mac)
         
-        final_key = decrypt_aes_128_ctr(new_ciphertext, verify_key[:16], new_iv)
+        final_key = decrypt_aes_ctr(new_ciphertext, verify_key[:16], new_iv)
         assert final_key == private_key
     
     def test_change_kdf_preserves_key(self):
@@ -153,23 +153,23 @@ class TestPasswordChange:
         # Encrypt with PBKDF2
         pbkdf2_salt = os.urandom(32)
         pbkdf2_key, _ = derive_key_pbkdf2(password, pbkdf2_salt, iterations=10000)
-        ciphertext, iv = encrypt_aes_128_ctr(private_key, pbkdf2_key[:16])
+        ciphertext, iv = encrypt_aes_ctr(private_key, pbkdf2_key[:16])
         pbkdf2_mac = compute_mac(pbkdf2_key, ciphertext)
         
         # Decrypt
-        decrypted = decrypt_aes_128_ctr(ciphertext, pbkdf2_key[:16], iv)
+        decrypted = decrypt_aes_ctr(ciphertext, pbkdf2_key[:16], iv)
         
         # Re-encrypt with scrypt
         scrypt_salt = os.urandom(32)
         scrypt_key, _ = derive_key_scrypt(password, scrypt_salt, n=16384)
-        new_ciphertext, new_iv = encrypt_aes_128_ctr(decrypted, scrypt_key[:16])
+        new_ciphertext, new_iv = encrypt_aes_ctr(decrypted, scrypt_key[:16])
         scrypt_mac = compute_mac(scrypt_key, new_ciphertext)
         
         # Verify new keystore
         verify_key, _ = derive_key_scrypt(password, scrypt_salt, n=16384)
         assert verify_mac(verify_key, new_ciphertext, scrypt_mac)
         
-        final_key = decrypt_aes_128_ctr(new_ciphertext, verify_key[:16], new_iv)
+        final_key = decrypt_aes_ctr(new_ciphertext, verify_key[:16], new_iv)
         assert final_key == private_key
 
 
@@ -183,7 +183,7 @@ class TestDecryptionErrors:
         salt = os.urandom(32)
         
         derived_key, _ = derive_key_scrypt(password, salt, n=16384)
-        ciphertext, iv = encrypt_aes_128_ctr(private_key, derived_key[:16])
+        ciphertext, iv = encrypt_aes_ctr(private_key, derived_key[:16])
         mac = compute_mac(derived_key, ciphertext)
         
         # Corrupt ciphertext
@@ -201,7 +201,7 @@ class TestDecryptionErrors:
         salt = os.urandom(32)
         
         derived_key, _ = derive_key_scrypt(password, salt, n=16384)
-        ciphertext, _ = encrypt_aes_128_ctr(private_key, derived_key[:16])
+        ciphertext, _ = encrypt_aes_ctr(private_key, derived_key[:16])
         mac = compute_mac(derived_key, ciphertext)
         
         # Corrupt MAC
@@ -232,7 +232,7 @@ class TestRealWorldKeystores:
         # Create keystore
         derived_key, kdf_params = derive_key_scrypt(password, salt, n=16384)
         encryption_key = derived_key[:16]
-        ciphertext, iv = encrypt_aes_128_ctr(private_key_bytes, encryption_key)
+        ciphertext, iv = encrypt_aes_ctr(private_key_bytes, encryption_key)
         mac = compute_mac(derived_key, ciphertext)
         
         keystore = {
@@ -246,7 +246,13 @@ class TestRealWorldKeystores:
                 },
                 "cipher": "aes-128-ctr",
                 "kdf": "scrypt",
-                "kdfparams": kdf_params,
+                "kdfparams": {
+                    "n": kdf_params.n,
+                    "r": kdf_params.r,
+                    "p": kdf_params.p,
+                    "dklen": kdf_params.dklen,
+                    "salt": kdf_params.salt.hex()
+                },
                 "mac": mac.hex()
             }
         }
@@ -265,7 +271,7 @@ class TestRealWorldKeystores:
         assert verify_mac(derived_key2, stored_ciphertext, stored_mac)
         
         stored_iv = bytes.fromhex(crypto["cipherparams"]["iv"])
-        decrypted = decrypt_aes_128_ctr(
+        decrypted = decrypt_aes_ctr(
             stored_ciphertext, derived_key2[:16], stored_iv
         )
         

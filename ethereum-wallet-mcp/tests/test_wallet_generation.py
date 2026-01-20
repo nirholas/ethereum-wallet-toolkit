@@ -397,11 +397,11 @@ class TestPublicKeyExtraction:
         account = Account.create()
         public_key = _get_public_key(account)
         
-        # Should start with 0x04 (uncompressed format)
-        assert public_key.startswith("0x04")
+        # Should start with 0x (hex format)
+        assert public_key.startswith("0x")
         
-        # Uncompressed public key is 65 bytes = 130 hex chars + 2 for 0x
-        assert len(public_key) == 132
+        # Public key is 64 bytes = 128 hex chars + 2 for 0x
+        assert len(public_key) == 130
     
     def test_get_public_key_deterministic(self):
         """Same account should always produce same public key."""

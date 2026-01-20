@@ -13,6 +13,125 @@ from ..crypto.kdf import assess_kdf_strength
 from ..utils.validation import validate_keystore_structure, get_keystore_address
 
 
+def get_keystore_info_impl(keystore: dict | str) -> dict:
+    """
+    Implementation of keystore info extraction.
+    
+    Args:
+        keystore: Keystore JSON object or JSON string
+    
+    Returns:
+        Dictionary with keystore metadata or error.
+    """
+    # Parse keystore if string
+    if isinstance(keystore, str):
+        try:
+            keystore = json.loads(keystore)
+        except json.JSONDecodeError as e:
+            return {
+                "error": True,
+                "code": "INVALID_JSON",
+                "message": f"Invalid JSON: {e}"
+            }
+    
+    # Basic validation
+    validation = validate_keystore_structure(keystore)
+    if not validation["is_valid"]:
+        return {
+            "error": True,
+            "code": "INVALID_KEYSTORE",
+            "message": f"Invalid keystore: {', '.join(validation['errors'])}"
+        }
+    
+    # Get crypto section
+    crypto = keystore.get("crypto") or keystore.get("Crypto", {})
+    
+    # Get address
+    address = get_keystore_address(keystore)
+    
+    # Get KDF info
+    kdf = crypto.get("kdf", "unknown").lower()
+    kdfparams = crypto.get("kdfparams", {})
+    
+    # Format KDF params for display
+    kdf_params_display = {}
+    if kdf == "scrypt":
+        kdf_params_display = {
+            "n": kdfparams.get("n"),
+            "r": kdfparams.get("r"),
+            "p": kdfparams.get("p"),
+            "dklen": kdfparams.get("dklen"),
+            "salt": kdfparams.get("salt", "")[:16] + "..." if kdfparams.get("salt") else None
+        }
+    elif kdf == "pbkdf2":
+        kdf_params_display = {
+            "c": kdfparams.get("c"),
+            "prf": kdfparams.get("prf"),
+            "dklen": kdfparams.get("dklen"),
+            "salt": kdfparams.get("salt", "")[:16] + "..." if kdfparams.get("salt") else None
+        }
+    
+    # Assess security
+    security = assess_kdf_strength(kdf, kdfparams)
+    
+    return {
+        "address": address,
+        "keystore_id": keystore.get("id"),
+        "version": keystore.get("version"),
+        "kdf": kdf,
+        "kdf_params": kdf_params_display,
+        "cipher": crypto.get("cipher"),
+        "security_assessment": security
+    }
+
+
+def validate_keystore_impl(keystore: dict | str, strict: bool = False) -> dict:
+    """
+    Implementation of keystore validation.
+    
+    Args:
+        keystore: Keystore to validate (JSON object or string)
+        strict: If true, require recommended security parameters
+    
+    Returns:
+        Dictionary with validation results.
+    """
+    # Parse keystore if string
+    if isinstance(keystore, str):
+        try:
+            keystore = json.loads(keystore)
+        except json.JSONDecodeError as e:
+            return {
+                "is_valid": False,
+                "version": None,
+                "errors": [f"Invalid JSON: {e}"],
+                "warnings": [],
+                "checks": {}
+            }
+    
+    # Run validation
+    result = validate_keystore_structure(keystore, strict=strict)
+    
+    # Add security assessment if valid enough
+    if result["checks"].get("has_kdf") and result["checks"].get("has_kdfparams"):
+        crypto = keystore.get("crypto") or keystore.get("Crypto", {})
+        kdf = crypto.get("kdf", "").lower()
+        kdfparams = crypto.get("kdfparams", {})
+        
+        security = assess_kdf_strength(kdf, kdfparams)
+        
+        # Add security warnings
+        if security.get("kdf_strength") in ("light", "weak"):
+            result["warnings"].append(
+                f"KDF strength is '{security['kdf_strength']}' - "
+                f"estimated crack time: {security['estimated_crack_time']}"
+            )
+        
+        result["warnings"].extend(security.get("recommendations", []))
+    
+    return result
+
+
 def register_validation_tools(server: Server) -> None:
     """Register validation tools with the MCP server."""
     
@@ -38,66 +157,7 @@ def register_validation_tools(server: Server) -> None:
             - cipher: Encryption cipher used
             - security_assessment: Security strength analysis
         """
-        # Parse keystore if string
-        if isinstance(keystore, str):
-            try:
-                keystore = json.loads(keystore)
-            except json.JSONDecodeError as e:
-                return {
-                    "error": True,
-                    "code": "INVALID_JSON",
-                    "message": f"Invalid JSON: {e}"
-                }
-        
-        # Basic validation
-        validation = validate_keystore_structure(keystore)
-        if not validation["is_valid"]:
-            return {
-                "error": True,
-                "code": "INVALID_KEYSTORE",
-                "message": f"Invalid keystore: {', '.join(validation['errors'])}"
-            }
-        
-        # Get crypto section
-        crypto = keystore.get("crypto") or keystore.get("Crypto", {})
-        
-        # Get address
-        address = get_keystore_address(keystore)
-        
-        # Get KDF info
-        kdf = crypto.get("kdf", "unknown").lower()
-        kdfparams = crypto.get("kdfparams", {})
-        
-        # Format KDF params for display
-        kdf_params_display = {}
-        if kdf == "scrypt":
-            kdf_params_display = {
-                "n": kdfparams.get("n"),
-                "r": kdfparams.get("r"),
-                "p": kdfparams.get("p"),
-                "dklen": kdfparams.get("dklen"),
-                "salt": kdfparams.get("salt", "")[:16] + "..." if kdfparams.get("salt") else None
-            }
-        elif kdf == "pbkdf2":
-            kdf_params_display = {
-                "c": kdfparams.get("c"),
-                "prf": kdfparams.get("prf"),
-                "dklen": kdfparams.get("dklen"),
-                "salt": kdfparams.get("salt", "")[:16] + "..." if kdfparams.get("salt") else None
-            }
-        
-        # Assess security
-        security = assess_kdf_strength(kdf, kdfparams)
-        
-        return {
-            "address": address,
-            "keystore_id": keystore.get("id"),
-            "version": keystore.get("version"),
-            "kdf": kdf,
-            "kdf_params": kdf_params_display,
-            "cipher": crypto.get("cipher"),
-            "security_assessment": security
-        }
+        return get_keystore_info_impl(keystore)
     
     
     @server.tool()
@@ -144,37 +204,4 @@ def register_validation_tools(server: Server) -> None:
             - has_mac: MAC field exists
             - mac_length_valid: MAC is correct length
         """
-        # Parse keystore if string
-        if isinstance(keystore, str):
-            try:
-                keystore = json.loads(keystore)
-            except json.JSONDecodeError as e:
-                return {
-                    "is_valid": False,
-                    "version": None,
-                    "errors": [f"Invalid JSON: {e}"],
-                    "warnings": [],
-                    "checks": {}
-                }
-        
-        # Run validation
-        result = validate_keystore_structure(keystore, strict=strict)
-        
-        # Add security assessment if valid enough
-        if result["checks"].get("has_kdf") and result["checks"].get("has_kdfparams"):
-            crypto = keystore.get("crypto") or keystore.get("Crypto", {})
-            kdf = crypto.get("kdf", "").lower()
-            kdfparams = crypto.get("kdfparams", {})
-            
-            security = assess_kdf_strength(kdf, kdfparams)
-            
-            # Add security warnings
-            if security.get("kdf_strength") in ("light", "weak"):
-                result["warnings"].append(
-                    f"KDF strength is '{security['kdf_strength']}' - "
-                    f"estimated crack time: {security['estimated_crack_time']}"
-                )
-            
-            result["warnings"].extend(security.get("recommendations", []))
-        
-        return result
+        return validate_keystore_impl(keystore, strict)
