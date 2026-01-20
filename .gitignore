@@ -113,3 +113,6 @@ yarn-error.log*
 
 
 
+
+# MCP Registry tokens
+.mcpregistry_*
