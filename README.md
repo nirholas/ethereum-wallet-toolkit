@@ -6,7 +6,7 @@ This directory contains the build system to create `offline1.html` using **offic
 
 All libraries are from the official Ethereum ecosystem:
 
-- `@ethereumjs/tx` - Transaction signing (legacy + EIP-1559)
+- `@ethereumjs/tx` - Transaction signing (legacy + EIP-1559) 
 - `@ethereumjs/util` - Utilities (address validation, checksums, etc.)
 - `@ethereumjs/rlp` - RLP encoding
 - `@ethereumjs/wallet` - Wallet utilities
