@@ -75,6 +75,8 @@ This codebase is well-documented and suitable for:
 - Author: @nichxbt (Twitter/X)
 - License: MIT
 
+## Links
 
-
-
+- Repository: https://github.com/nirholas/ethereum-wallet-toolkit
+- Author: https://github.com/nirholas
+- Full documentation: https://raw.githubusercontent.com/nirholas/ethereum-wallet-toolkit/main/llms-full.txt

@@ -1,0 +1,15 @@
+{
+    "name": "ethereum-wallet-toolkit",
+    "description": "Python toolkit for Ethereum wallets: CLI tools + Model Context Protocol (MCP) servers for wallet generation, BIP39/BIP44 HD wallets, Web3 Secret Storage V3 keystores, and EIP-712 typed data signing",
+    "version": "1.0.0",
+    "publisher": "nirholas",
+    "repository": "https://github.com/nirholas/ethereum-wallet-toolkit",
+    "language": "HTML",
+    "topics": [
+        "wallet",
+        "nirholas",
+        "open-source",
+        "toolkit",
+        "ethereum"
+    ]
+}
