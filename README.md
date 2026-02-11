@@ -3174,3 +3174,7 @@ curl -X POST https://modelcontextprotocol.name/mcp/ethereum-wallet-toolkit \
 - **All 27 MCP servers** — See the full catalog at [modelcontextprotocol.name](https://modelcontextprotocol.name)
 
 > Powered by [modelcontextprotocol.name](https://modelcontextprotocol.name) — the open MCP HTTP gateway
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=nirholas/ethereum-wallet-toolkit&type=Date)](https://star-history.com/#nirholas/ethereum-wallet-toolkit&Date)
