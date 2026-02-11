@@ -3102,3 +3102,75 @@ ERC 8004, ERC_8004, ERC.8004, EIP 8004, EIP_8004, EIP.8004, erc-8004, erc8004, e
 *Last Updated: January 29, 2026*
 </details>
 
+
+---
+
+## 🌐 Live HTTP Deployment
+
+**Ethereum Wallet Toolkit** is deployed and accessible over HTTP via [MCP Streamable HTTP](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http) transport — no local installation required.
+
+**Endpoint:**
+```
+https://modelcontextprotocol.name/mcp/ethereum-wallet-toolkit
+```
+
+### Connect from any MCP Client
+
+Add to your MCP client configuration (Claude Desktop, Cursor, SperaxOS, etc.):
+
+```json
+{
+  "mcpServers": {
+    "ethereum-wallet-toolkit": {
+      "type": "http",
+      "url": "https://modelcontextprotocol.name/mcp/ethereum-wallet-toolkit"
+    }
+  }
+}
+```
+
+### Available Tools (3)
+
+| Tool | Description |
+|------|-------------|
+| `get_eth_price` | Current ETH price |
+| `validate_address` | Validate Ethereum address |
+| `get_price` | Get crypto prices |
+
+### Example Requests
+
+**Current ETH price:**
+```bash
+curl -X POST https://modelcontextprotocol.name/mcp/ethereum-wallet-toolkit \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_eth_price","arguments":{}}}'
+```
+
+**Validate Ethereum address:**
+```bash
+curl -X POST https://modelcontextprotocol.name/mcp/ethereum-wallet-toolkit \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"validate_address","arguments":{"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"}}}'
+```
+
+**Get crypto prices:**
+```bash
+curl -X POST https://modelcontextprotocol.name/mcp/ethereum-wallet-toolkit \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_price","arguments":{"ids":"ethereum","vs_currencies":"usd,eur"}}}'
+```
+
+### List All Tools
+
+```bash
+curl -X POST https://modelcontextprotocol.name/mcp/ethereum-wallet-toolkit \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+```
+
+### Also Available On
+
+- **[SperaxOS](https://speraxos.vercel.app)** — Browse and install from the [MCP marketplace](https://speraxos.vercel.app/community/mcp)
+- **All 27 MCP servers** — See the full catalog at [modelcontextprotocol.name](https://modelcontextprotocol.name)
+
+> Powered by [modelcontextprotocol.name](https://modelcontextprotocol.name) — the open MCP HTTP gateway
