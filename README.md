@@ -1,4 +1,4 @@
-# Offline Build - Official Ethereumjs Libraries 
+# Offline Build - Official Ethereumjs Libraries  
 
 This directory contains the build system to create `offline1.html` using **official ethereumjs libraries**.
 
