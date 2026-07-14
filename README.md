@@ -59,8 +59,6 @@ All features match the CLI tool:
 - Can be saved and used on an air-gapped machine
 - Uses official, audited Ethereum libraries
 
-
-
 # MCP Servers
 
 This repository includes 5 Model Context Protocol (MCP) servers that expose Ethereum wallet functionality to AI assistants like Claude.
@@ -283,7 +281,7 @@ All servers use official Ethereum Foundation libraries:
 
 ## License
 
-MIT License - See [LICENSE](../LICENSE)
+All rights reserved. See [LICENSE](LICENSE).
 
 # Prompt Examples for Ethereum Wallet MCP Servers
 
@@ -2158,7 +2156,6 @@ SUPPORTED_LANGUAGES = [
     "czech", "portuguese"
 ]
 
-
 def register_documentation_resources(server: Server) -> None:
     """
     Register all documentation resources with the MCP server.
@@ -2219,7 +2216,6 @@ def register_documentation_resources(server: Server) -> None:
             
         except Exception as e:
             return f"Error loading wordlist for '{language}': {str(e)}"
-
 
 # ============================================================================
 # Documentation Content
@@ -2894,7 +2890,7 @@ Generate an address matching a vanity pattern.
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) for details.
+All rights reserved. See [LICENSE](LICENSE).
 
 ## Contributing
 
@@ -3101,7 +3097,6 @@ ERC 8004, ERC_8004, ERC.8004, EIP 8004, EIP_8004, EIP.8004, erc-8004, erc8004, e
 *Total Keywords: 5000+*
 *Last Updated: January 29, 2026*
 </details>
-
 
 ---
 
