@@ -1,4 +1,8 @@
-# Offline Build - Official Ethereumjs Libraries  
+# Ethereum Wallet Toolkit
+
+A collection of Ethereum wallet tools: Python CLI utilities (`eth_toolkit.py`, `wallet.py`, `keystore.py`, `sign.py`, `transaction.py`, `typed_data.py`, `validate.py`, `vanity.py`), five Model Context Protocol (MCP) servers exposing wallet functionality to AI assistants, a fully offline single-file HTML wallet (`offline.html`), and an x402 payment facilitator. See the sections below for each component.
+
+## Offline Build - Official Ethereumjs Libraries
 
 This directory contains the build system to create `offline1.html` using **official ethereumjs libraries**.
 
@@ -65,20 +69,20 @@ This repository includes 5 Model Context Protocol (MCP) servers that expose Ethe
 
 ## Documentation
 
-- **[Prompt Examples](PROMPT_EXAMPLES.md)** - Real-world prompts for interacting with the servers
-- **[Testing Guide](TESTING.md)** - How to run and write tests
-- **[Integration Guide](INTEGRATION.md)** - Setting up with Claude Desktop and other tools
-- **[Workflows & Recipes](WORKFLOWS.md)** - Common workflows combining multiple servers
+- **[Prompt Examples](docs/PROMPT_EXAMPLES.md)** - Real-world prompts for interacting with the servers
+- **[Testing Guide](docs/TESTING.md)** - How to run and write tests
+- **[Integration Guide](docs/INTEGRATION.md)** - Setting up with Claude Desktop and other tools
+- **[Workflows & Recipes](docs/WORKFLOWS.md)** - Common workflows combining multiple servers
 
 ## Overview
 
 | Server | Purpose | Tools | Tests |
 |--------|---------|-------|-------|
-| [ethereum-wallet-mcp](../ethereum-wallet-mcp/) | Wallet generation, HD wallets, mnemonics | 6 | 111 |
-| [keystore-mcp-server](../keystore-mcp-server/) | Encrypted keystore files (Web3 Secret Storage) | 9 | 74 |
-| [signing-mcp-server](../signing-mcp-server/) | Message signing, EIP-191, EIP-712 | 12 | 34 |
-| [transaction-mcp-server](../transaction-mcp-server/) | Transaction building, encoding, signing | 15 | 65 |
-| [validation-mcp-server](../validation-mcp-server/) | Address/key validation, checksums, hashing | 15 | 64 |
+| [ethereum-wallet-mcp](./ethereum-wallet-mcp/) | Wallet generation, HD wallets, mnemonics | 6 | 111 |
+| [keystore-mcp-server](./keystore-mcp-server/) | Encrypted keystore files (Web3 Secret Storage) | 9 | 74 |
+| [signing-mcp-server](./signing-mcp-server/) | Message signing, EIP-191, EIP-712 | 12 | 34 |
+| [transaction-mcp-server](./transaction-mcp-server/) | Transaction building, encoding, signing | 15 | 65 |
+| [validation-mcp-server](./validation-mcp-server/) | Address/key validation, checksums, hashing | 15 | 64 |
 
 **Total: 57 tools, 348 tests**
 
