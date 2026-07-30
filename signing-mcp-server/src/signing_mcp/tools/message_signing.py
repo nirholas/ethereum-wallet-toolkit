@@ -10,7 +10,7 @@ from typing import Any, Dict
 from eth_account import Account
 from eth_account.messages import encode_defunct
 from eth_utils import to_checksum_address
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -226,7 +226,7 @@ def recover_signer_impl(message: str, signature: str) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_message_signing_tools(server: Server) -> None:
+def register_message_signing_tools(server: MCPServer) -> None:
     """Register EIP-191 message signing tools with the MCP server."""
     
     @server.tool()

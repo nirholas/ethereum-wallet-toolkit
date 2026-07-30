@@ -4,10 +4,10 @@ ETH Transfer Workflow Prompts
 Guided prompts for ETH transfers.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_transfer_prompts(server: Server) -> None:
+def register_transfer_prompts(server: MCPServer) -> None:
     """Register ETH transfer workflow prompts."""
     
     @server.prompt()

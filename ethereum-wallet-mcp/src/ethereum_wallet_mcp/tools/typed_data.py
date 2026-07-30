@@ -21,7 +21,7 @@ from copy import deepcopy
 from eth_account import Account
 from eth_account.messages import encode_typed_data
 from eth_utils import to_checksum_address, keccak
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -487,7 +487,7 @@ def _extract_message_hash(signed) -> str:
 # Tool Registration
 # ============================================================================
 
-def register_typed_data_tools(server: Server) -> None:
+def register_typed_data_tools(server: MCPServer) -> None:
     """
     Register all typed data tools with the MCP server.
     

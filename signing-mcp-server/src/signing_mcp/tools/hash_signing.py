@@ -8,7 +8,7 @@ import re
 from typing import Any, Dict
 
 from eth_account import Account
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -183,7 +183,7 @@ def verify_hash_signature_impl(
 # Tool Registration
 # ============================================================================
 
-def register_hash_signing_tools(server: Server) -> None:
+def register_hash_signing_tools(server: MCPServer) -> None:
     """Register hash signing tools with the MCP server."""
     
     @server.tool()

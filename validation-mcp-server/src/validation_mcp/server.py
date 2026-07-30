@@ -8,7 +8,7 @@ Ethereum validation and utility functionality.
 import asyncio
 import logging
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 from .tools.address_validation import register_address_tools
 from .tools.key_validation import register_key_tools
@@ -35,14 +35,14 @@ logging.basicConfig(
 logger = logging.getLogger("validation-mcp-server")
 
 
-def create_server() -> FastMCP:
+def create_server() -> MCPServer:
     """
     Create and configure the MCP server with all tools, prompts, and resources.
     
     Returns:
-        FastMCP: Configured MCP server instance
+        MCPServer: Configured MCP server instance
     """
-    server = FastMCP("validation-mcp-server")
+    server = MCPServer("validation-mcp-server")
     
     # Register tools
     register_address_tools(server)

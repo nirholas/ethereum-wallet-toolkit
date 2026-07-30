@@ -8,7 +8,7 @@ All core logic is in *_impl functions for testability.
 import re
 from typing import Any, Dict, List, Optional
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from eth_utils import to_checksum_address, keccak
 
 
@@ -401,7 +401,7 @@ def generate_vanity_check_impl(
 # Tool Registration
 # =============================================================================
 
-def register_address_tools(server: FastMCP) -> None:
+def register_address_tools(server: MCPServer) -> None:
     """Register address validation tools with the MCP server."""
     
     @server.tool()

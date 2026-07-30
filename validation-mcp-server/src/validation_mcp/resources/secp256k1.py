@@ -4,7 +4,7 @@ secp256k1 Constants Resource
 Provides secp256k1 elliptic curve parameters and constants.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 
 SECP256K1_CONSTANTS = """
@@ -85,7 +85,7 @@ Signatures must have s ≤ n/2 (low-s requirement).
 """
 
 
-def register_secp256k1_resources(server: FastMCP) -> None:
+def register_secp256k1_resources(server: MCPServer) -> None:
     """Register secp256k1 constants resources."""
     
     @server.resource("validation://secp256k1-constants")

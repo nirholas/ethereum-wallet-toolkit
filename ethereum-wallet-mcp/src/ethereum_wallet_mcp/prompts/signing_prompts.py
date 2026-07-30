@@ -12,11 +12,11 @@ with embedded security best practices.
 
 import time
 from typing import Optional
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from mcp.types import Prompt, PromptMessage, TextContent, PromptArgument
 
 
-def register_signing_prompts(server: Server) -> None:
+def register_signing_prompts(server: MCPServer) -> None:
     """
     Register all signing-related prompts with the MCP server.
     

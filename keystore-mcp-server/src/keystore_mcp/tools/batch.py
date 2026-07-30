@@ -7,7 +7,7 @@ Implements batch_encrypt_keystores MCP tool.
 import json
 from typing import Any
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from eth_account import Account
 from eth_utils import to_checksum_address
 
@@ -18,7 +18,7 @@ from ..utils.validation import validate_private_key
 import uuid
 
 
-def register_batch_tools(server: Server) -> None:
+def register_batch_tools(server: MCPServer) -> None:
     """Register batch operation tools with the MCP server."""
     
     @server.tool()

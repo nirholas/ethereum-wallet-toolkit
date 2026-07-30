@@ -7,7 +7,7 @@ Implements validate_private_key tool.
 import re
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from eth_account import Account
 from eth_keys import keys
 from eth_utils import to_checksum_address
@@ -305,7 +305,7 @@ def validate_public_key_impl(public_key: str) -> dict:
         }
 
 
-def register_key_tools(server: FastMCP) -> None:
+def register_key_tools(server: MCPServer) -> None:
     """Register key validation tools with the MCP server."""
     
     @server.tool()

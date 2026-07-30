@@ -9,7 +9,7 @@ from typing import Any, Dict
 from eth_account import Account
 from eth_utils import to_checksum_address
 from rlp import decode as rlp_decode
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -249,7 +249,7 @@ def analyze_transaction_impl(raw_tx: str) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_decoding_tools(server: Server) -> None:
+def register_decoding_tools(server: MCPServer) -> None:
     """Register transaction decoding tools with the MCP server."""
     
     @server.tool()

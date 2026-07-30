@@ -2,10 +2,10 @@
 Typed Data Signing Workflow Prompts
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_typed_data_prompts(server: Server) -> None:
+def register_typed_data_prompts(server: MCPServer) -> None:
     """Register typed data workflow prompts."""
     
     @server.prompt()

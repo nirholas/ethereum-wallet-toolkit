@@ -2,10 +2,10 @@
 Signature Verification Workflow Prompts
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_verification_prompts(server: Server) -> None:
+def register_verification_prompts(server: MCPServer) -> None:
     """Register signature verification workflow prompts."""
     
     @server.prompt()

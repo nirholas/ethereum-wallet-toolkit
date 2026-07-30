@@ -4,7 +4,7 @@ Address Derivation Tools
 Implements derive_address_from_private_key and derive_address_from_public_key.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from eth_account import Account
 from eth_keys import keys
 from eth_utils import keccak, to_checksum_address
@@ -202,7 +202,7 @@ def derive_address_from_public_key_impl(
         }
 
 
-def register_derivation_tools(server: FastMCP) -> None:
+def register_derivation_tools(server: MCPServer) -> None:
     """Register derivation tools with the MCP server."""
     
     @server.tool()

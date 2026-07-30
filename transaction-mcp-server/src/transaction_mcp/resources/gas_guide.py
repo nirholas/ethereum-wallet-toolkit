@@ -4,7 +4,7 @@ Gas Guide Resources
 Documentation about gas mechanics in Ethereum.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 GAS_GUIDE_CONTENT = """
@@ -188,7 +188,7 @@ cost_eth = gas_used * gas_price_gwei * 1e-9
 """
 
 
-def register_gas_resources(server: Server) -> None:
+def register_gas_resources(server: MCPServer) -> None:
     """Register gas documentation resources."""
     
     @server.resource("transaction://gas/guide")

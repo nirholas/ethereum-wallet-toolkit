@@ -4,10 +4,10 @@ Keystore Security Guide Resource
 Provides security best practices for keystore management.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_security_resources(server: Server) -> None:
+def register_security_resources(server: MCPServer) -> None:
     """Register security resources with the MCP server."""
     
     @server.resource("keystore://security-guide")

@@ -5,7 +5,7 @@ Implements validate_hex_data tool.
 """
 
 import re
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 
 HEX_PATTERN = re.compile(r'^[0-9a-fA-F]+$')
@@ -193,7 +193,7 @@ def validate_hex_impl(
     }
 
 
-def register_hex_tools(server: FastMCP) -> None:
+def register_hex_tools(server: MCPServer) -> None:
     """Register hex validation tools with the MCP server."""
     
     @server.tool()

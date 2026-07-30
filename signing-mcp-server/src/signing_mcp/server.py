@@ -8,8 +8,7 @@ Ethereum message signing and EIP-712 typed data functionality.
 import asyncio
 import logging
 
-from mcp.server import Server
-from mcp.server.stdio import stdio_server
+from mcp.server.mcpserver import MCPServer
 
 from .tools.message_signing import register_message_signing_tools
 from .tools.typed_data import register_typed_data_tools
@@ -32,14 +31,14 @@ logging.basicConfig(
 logger = logging.getLogger("signing-mcp-server")
 
 
-def create_server() -> Server:
+def create_server() -> MCPServer:
     """
     Create and configure the MCP server with all tools, prompts, and resources.
     
     Returns:
-        Server: Configured MCP server instance
+        MCPServer: Configured MCP server instance
     """
-    server = Server("signing-mcp-server")
+    server = MCPServer("signing-mcp-server")
     
     # Register tools
     register_message_signing_tools(server)
@@ -72,14 +71,8 @@ def create_server() -> Server:
 async def run_server() -> None:
     """Run the MCP server using stdio transport."""
     server = create_server()
-    
-    async with stdio_server() as (read_stream, write_stream):
-        logger.info("Starting Signing MCP Server...")
-        await server.run(
-            read_stream,
-            write_stream,
-            server.create_initialization_options()
-        )
+    logger.info("Starting Signing MCP Server...")
+    await server.run_stdio_async()
 
 
 def main() -> None:

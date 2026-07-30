@@ -8,8 +8,7 @@ Ethereum transaction building, signing, and decoding functionality.
 import asyncio
 import logging
 
-from mcp.server import Server
-from mcp.server.stdio import stdio_server
+from mcp.server.mcpserver import MCPServer
 
 from .tools.building import register_building_tools
 from .tools.signing import register_signing_tools
@@ -33,14 +32,14 @@ logging.basicConfig(
 logger = logging.getLogger("transaction-mcp-server")
 
 
-def create_server() -> Server:
+def create_server() -> MCPServer:
     """
     Create and configure the MCP server with all tools, prompts, and resources.
     
     Returns:
-        Server: Configured MCP server instance
+        MCPServer: Configured MCP server instance
     """
-    server = Server("transaction-mcp-server")
+    server = MCPServer("transaction-mcp-server")
     
     # Register tools
     register_building_tools(server)
@@ -72,14 +71,8 @@ def create_server() -> Server:
 async def run_server() -> None:
     """Run the MCP server using stdio transport."""
     server = create_server()
-    
-    async with stdio_server() as (read_stream, write_stream):
-        logger.info("Starting Transaction MCP Server...")
-        await server.run(
-            read_stream,
-            write_stream,
-            server.create_initialization_options()
-        )
+    logger.info("Starting Transaction MCP Server...")
+    await server.run_stdio_async()
 
 
 def main() -> None:

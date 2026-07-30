@@ -201,7 +201,7 @@ Generate an address matching a vanity pattern.
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) for details.
+MIT License
 
 ## Contributing
 

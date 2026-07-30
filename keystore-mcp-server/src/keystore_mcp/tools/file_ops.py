@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from eth_utils import to_checksum_address
 
 from ..utils.file_utils import (
@@ -21,7 +21,7 @@ from ..utils.file_utils import (
 from ..utils.validation import validate_keystore_structure, get_keystore_address
 
 
-def register_file_tools(server: Server) -> None:
+def register_file_tools(server: MCPServer) -> None:
     """Register file operation tools with the MCP server."""
     
     @server.tool()

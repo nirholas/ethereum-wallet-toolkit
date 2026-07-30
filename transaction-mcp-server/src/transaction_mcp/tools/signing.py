@@ -9,7 +9,7 @@ from typing import Any, Dict, Optional
 
 from eth_account import Account
 from eth_utils import to_checksum_address
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -225,7 +225,7 @@ def recover_transaction_signer_impl(raw_tx: str) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_signing_tools(server: Server) -> None:
+def register_signing_tools(server: MCPServer) -> None:
     """Register transaction signing tools with the MCP server."""
     
     @server.tool()

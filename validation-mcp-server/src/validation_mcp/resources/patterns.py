@@ -4,7 +4,7 @@ Address Patterns Resource
 Provides known address patterns and special addresses.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 
 ADDRESS_PATTERNS = """
@@ -177,7 +177,7 @@ Brain wallets (deriving keys from memorable phrases) are extremely vulnerable:
 """
 
 
-def register_patterns_resources(server: FastMCP) -> None:
+def register_patterns_resources(server: MCPServer) -> None:
     """Register address patterns and weak keys resources."""
     
     @server.resource("validation://address-patterns")

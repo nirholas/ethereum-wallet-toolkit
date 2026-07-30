@@ -4,10 +4,10 @@ Keystore Migration Prompts
 Provides guided prompts for keystore migration scenarios.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_migration_prompts(server: Server) -> None:
+def register_migration_prompts(server: MCPServer) -> None:
     """Register migration prompts with the MCP server."""
     
     @server.prompt("keystore_migration")

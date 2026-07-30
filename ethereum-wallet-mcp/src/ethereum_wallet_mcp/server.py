@@ -9,8 +9,7 @@ import asyncio
 import logging
 from typing import Any
 
-from mcp.server import Server
-from mcp.server.stdio import stdio_server
+from mcp.server.mcpserver import MCPServer
 
 from .tools.wallet_generation import register_wallet_tools
 from .tools.signing import register_signing_tools
@@ -28,14 +27,14 @@ logging.basicConfig(
 logger = logging.getLogger("ethereum-wallet-mcp")
 
 
-def create_server() -> Server:
+def create_server() -> MCPServer:
     """
     Create and configure the MCP server with all tools, prompts, and resources.
     
     Returns:
-        Server: Configured MCP server instance
+        MCPServer: Configured MCP server instance
     """
-    server = Server("ethereum-wallet-mcp")
+    server = MCPServer("ethereum-wallet-mcp")
     
     # Register all components
     # Wallet tools
@@ -67,14 +66,8 @@ def create_server() -> Server:
 async def run_server() -> None:
     """Run the MCP server using stdio transport."""
     server = create_server()
-    
-    async with stdio_server() as (read_stream, write_stream):
-        logger.info("Starting Ethereum Wallet MCP Server...")
-        await server.run(
-            read_stream,
-            write_stream,
-            server.create_initialization_options()
-        )
+    logger.info("Starting Ethereum Wallet MCP Server...")
+    await server.run_stdio_async()
 
 
 def main() -> None:

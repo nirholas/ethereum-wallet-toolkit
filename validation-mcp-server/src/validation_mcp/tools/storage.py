@@ -4,7 +4,7 @@ Storage Slot Calculation Tools
 Implements calculate_storage_slot tool.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from eth_utils import keccak
 
 
@@ -136,7 +136,7 @@ def calculate_storage_slot_impl(base_slot: str, key: str = None, slot_type: str 
         }
 
 
-def register_storage_tools(server: FastMCP) -> None:
+def register_storage_tools(server: MCPServer) -> None:
     """Register storage slot tools with the MCP server."""
     
     @server.tool()

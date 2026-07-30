@@ -4,10 +4,10 @@ Gas Optimization Workflow Prompts
 Guided prompts for gas management.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_gas_prompts(server: Server) -> None:
+def register_gas_prompts(server: MCPServer) -> None:
     """Register gas workflow prompts."""
     
     @server.prompt()

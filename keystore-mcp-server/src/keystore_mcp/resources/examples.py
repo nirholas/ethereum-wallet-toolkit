@@ -4,10 +4,10 @@ Keystore Examples Resource
 Provides example keystores for testing and reference.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_example_resources(server: Server) -> None:
+def register_example_resources(server: MCPServer) -> None:
     """Register example resources with the MCP server."""
     
     @server.resource("keystore://examples/{example_type}")

@@ -4,7 +4,7 @@ EIP-712 Specification Resource
 Provides documentation on EIP-712 typed structured data standard.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 EIP712_SPECIFICATION = """
@@ -171,7 +171,7 @@ https://eips.ethereum.org/EIPS/eip-712
 """
 
 
-def register_eip712_resources(server: Server) -> None:
+def register_eip712_resources(server: MCPServer) -> None:
     """Register EIP-712 specification resources."""
     
     @server.resource("eip712://specification")

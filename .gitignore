@@ -35,6 +35,10 @@ Thumbs.db
 # Secrets and Keys (CRITICAL)
 .env
 .env.*
+# Template files carry no secrets and must stay in the repo, otherwise the
+# "cp .env.example .env" step in the subproject READMEs cannot work.
+!.env.example
+!.env.sample
 *.pem
 *.key
 secrets.*
@@ -95,12 +99,15 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Generated keypairs (security - never commit private keys)
-*.json
-!typescript/package.json
-!typescript/tsconfig.json
-!typescript/tsconfig.test.json
-!typescript/jest.config.js
+# Generated keypairs (security - never commit private keys).
+# Keep these patterns specific. A blanket "*.json" rule here previously
+# swallowed real project files (x402-facilitator/package.json and
+# tsconfig.json), which left that subproject unbuildable once cloned.
+keypair*.json
+privatekey*.json
+private_key*.json
+mnemonic*.json
+seed*.json
 
 # Test outputs
 *.tmp

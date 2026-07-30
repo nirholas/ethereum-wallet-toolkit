@@ -13,8 +13,11 @@ import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # Test vectors
-TEST_KEY = "abcdefghijklmnopqrstuvwxyz12345678912345678912345678912345678912"
-TEST_ADDR = "0x1234567890abcdefghijklmnopqrstuvwxyz1234"
+# Canonical BIP39 test vector. TEST_KEY/TEST_ADDR are the account derived
+# from TEST_MNEMONIC at m/44'/60'/0'/0/0, so the three stay consistent.
+# This keypair is published in the BIP39 spec and must never hold funds.
+TEST_KEY = "1ab42cc412b618bdea3a599e3c9bae199ebf030895b039e9db1e30dafb12b727"
+TEST_ADDR = "0x9858EfFD232B4033E47d90003D41EC34EcaEda94"
 TEST_MNEMONIC = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
 TEST_MNEMONIC_LIST = TEST_MNEMONIC.split()
 
@@ -24,7 +27,7 @@ failed = 0
 def run_cmd(args):
     """Run CLI command and return output"""
     result = subprocess.run(
-        ["python3", "eth_toolkit.py"] + args,
+        [sys.executable, "eth_toolkit.py"] + args,
         capture_output=True,
         text=True
     )
@@ -67,8 +70,7 @@ out, err, code = run_cmd(["restore", "--key", "0x" + TEST_KEY])
 test("Restore with 0x prefix", TEST_ADDR.lower() in out.lower())
 
 out, err, code = run_cmd(["restore", "--mnemonic"] + TEST_MNEMONIC_LIST)
-expected_addr = "0x1234123451234567890d91123456789012345678"
-test("Restore from mnemonic", expected_addr.lower() in out.lower())
+test("Restore from mnemonic", TEST_ADDR.lower() in out.lower())
 
 # --- DERIVE ---
 print("\n--- DERIVE ---")
@@ -241,14 +243,14 @@ print("\n--- VANITY ---")
 # Use timeout since vanity doesn't have --max-attempts
 # Simple prefix "00" is very easy to find
 result = subprocess.run(
-    ["timeout", "15", "python3", "eth_toolkit.py", "vanity", "--prefix", "00", "--quiet"],
+    ["timeout", "15", sys.executable, "eth_toolkit.py", "vanity", "--prefix", "00", "--quiet"],
     capture_output=True,
     text=True
 )
 test("Vanity search (prefix)", "0x" in result.stdout or result.returncode == 0)
 
 result = subprocess.run(
-    ["timeout", "15", "python3", "eth_toolkit.py", "vanity", "--suffix", "00", "--quiet"],
+    ["timeout", "15", sys.executable, "eth_toolkit.py", "vanity", "--suffix", "00", "--quiet"],
     capture_output=True,
     text=True
 )

@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import type { SupportedChainId } from '../types/index.js';
-
 /** Ethereum address validation */
 const addressSchema = z.string().regex(/^0x[0-9a-fA-F]{40}$/, 'Invalid Ethereum address');
 

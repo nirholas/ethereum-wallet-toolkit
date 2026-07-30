@@ -11,7 +11,7 @@ from copy import deepcopy
 from eth_account import Account
 from eth_account.messages import encode_typed_data
 from eth_utils import to_checksum_address, keccak
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -441,7 +441,7 @@ def get_typed_data_template_impl(template_name: str) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_typed_data_tools(server: Server) -> None:
+def register_typed_data_tools(server: MCPServer) -> None:
     """Register EIP-712 typed data tools with the MCP server."""
     
     @server.tool()

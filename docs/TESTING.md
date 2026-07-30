@@ -351,11 +351,8 @@ validation-mcp-server
 ### Test via MCP Inspector
 
 ```bash
-# Install MCP inspector
-npm install -g @anthropic-ai/mcp-inspector
-
-# Inspect a server
-mcp-inspector ethereum-wallet-mcp
+# Run the official MCP Inspector (no global install needed)
+npx @modelcontextprotocol/inspector ethereum-wallet-mcp
 ```
 
 ### Verify Tool Outputs

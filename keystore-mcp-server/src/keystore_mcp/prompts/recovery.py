@@ -4,10 +4,10 @@ Keystore Recovery and Security Audit Prompts
 Provides guided prompts for recovery procedures and security audits.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_recovery_prompts(server: Server) -> None:
+def register_recovery_prompts(server: MCPServer) -> None:
     """Register recovery and security prompts with the MCP server."""
     
     @server.prompt("keystore_recovery")

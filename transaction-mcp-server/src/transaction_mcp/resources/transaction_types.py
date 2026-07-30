@@ -4,7 +4,7 @@ Transaction Types Resources
 Documentation about Ethereum transaction types.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 TRANSACTION_TYPES_CONTENT = """
@@ -145,7 +145,7 @@ totalCost = effectiveGasPrice * gasUsed
 """
 
 
-def register_transaction_types_resources(server: Server) -> None:
+def register_transaction_types_resources(server: MCPServer) -> None:
     """Register transaction types documentation resources."""
     
     @server.resource("transaction://types/overview")

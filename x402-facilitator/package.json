@@ -1,0 +1,60 @@
+{
+  "name": "x402-facilitator",
+  "version": "1.0.0",
+  "description": "x402 payment facilitator: verifies and settles EIP-3009 payment authorizations over HTTP",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nirholas/ethereum-wallet-toolkit.git",
+    "directory": "x402-facilitator"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "esm"
+    ],
+    "target": "node20",
+    "platform": "node",
+    "outDir": "dist",
+    "clean": true,
+    "sourcemap": true
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.0",
+    "@hono/zod-validator": "^0.7.6",
+    "hono": "^4.6.0",
+    "lru-cache": "^11.2.7",
+    "viem": "^2.21.0",
+    "zod": "^3.23.0"
+  },
+  "optionalDependencies": {
+    "ioredis": "^5.4.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.1.0"
+  }
+}

@@ -1,41 +1,40 @@
 #!/bin/bash
-# Test script for all MCP servers
+# Test script for all MCP servers.
+set -uo pipefail
+cd "$(dirname "$0")"
+
+SERVERS=(
+  ethereum-wallet-mcp
+  signing-mcp-server
+  keystore-mcp-server
+  transaction-mcp-server
+  validation-mcp-server
+)
 
 echo "======================================"
 echo "Running all MCP server tests"
 echo "======================================"
 
-cd /workspaces/ethereum-wallet-toolkit
+# Install every server into the active environment.
+for server in "${SERVERS[@]}"; do
+  python3 -m pip install -e "$server" > /dev/null 2>&1
+done
 
-# Install all servers
-pip install -e ethereum-wallet-mcp > /dev/null 2>&1
-pip install -e signing-mcp-server > /dev/null 2>&1
-pip install -e keystore-mcp-server > /dev/null 2>&1
-pip install -e transaction-mcp-server > /dev/null 2>&1
-pip install -e validation-mcp-server > /dev/null 2>&1
-
-echo ""
-echo "=== 1. ETHEREUM-WALLET-MCP TESTS ==="
-python -m pytest ethereum-wallet-mcp/tests/ --tb=short
-
-echo ""
-echo "=== 2. SIGNING-MCP-SERVER TESTS ==="
-python -m pytest signing-mcp-server/tests/ --tb=short
-
-echo ""
-echo "=== 3. KEYSTORE-MCP-SERVER TESTS ==="
-python -m pytest keystore-mcp-server/tests/ --tb=short
-
-echo ""
-echo "=== 4. TRANSACTION-MCP-SERVER TESTS ==="
-python -m pytest transaction-mcp-server/tests/ --tb=short
-
-echo ""
-echo "=== 5. VALIDATION-MCP-SERVER TESTS ==="
-python -m pytest validation-mcp-server/tests/ --tb=short
+status=0
+index=1
+for server in "${SERVERS[@]}"; do
+  echo ""
+  echo "=== $index. $(echo "$server" | tr '[:lower:]' '[:upper:]') TESTS ==="
+  python3 -m pytest "$server/tests/" --tb=short || status=1
+  index=$((index + 1))
+done
 
 echo ""
 echo "======================================"
-echo "All test suites complete"
+if [ "$status" -eq 0 ]; then
+  echo "All test suites passed"
+else
+  echo "At least one test suite FAILED"
+fi
 echo "======================================"
-
+exit "$status"

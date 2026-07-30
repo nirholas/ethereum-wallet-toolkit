@@ -5,7 +5,7 @@ Implements encode_function_selector and decode_function_selector.
 """
 
 import re
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from eth_utils import keccak
 
 
@@ -221,7 +221,7 @@ def decode_function_selector_impl(selector: str) -> dict:
     }
 
 
-def register_selector_tools(server: FastMCP) -> None:
+def register_selector_tools(server: MCPServer) -> None:
     """Register function selector tools with the MCP server."""
     
     @server.tool()

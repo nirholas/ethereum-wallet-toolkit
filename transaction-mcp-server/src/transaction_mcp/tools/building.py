@@ -8,7 +8,7 @@ import re
 from typing import Any, Dict, Optional
 
 from eth_utils import to_checksum_address
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -326,7 +326,7 @@ def compare_transactions_impl(tx1: Dict, tx2: Dict) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_building_tools(server: Server) -> None:
+def register_building_tools(server: MCPServer) -> None:
     """Register transaction building tools with the MCP server."""
     
     @server.tool()

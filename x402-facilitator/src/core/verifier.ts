@@ -1,11 +1,4 @@
-import {
-  type Address,
-  type Hex,
-  type PublicClient,
-  createPublicClient,
-  http,
-  verifyTypedData,
-} from 'viem';
+import { createPublicClient, http, verifyTypedData } from 'viem';
 import { base, arbitrum, mainnet, baseSepolia, arbitrumSepolia } from 'viem/chains';
 
 import type { SupportedChainId, VerifyResult, X402Payment, PaymentRequirements } from '../types/index.js';

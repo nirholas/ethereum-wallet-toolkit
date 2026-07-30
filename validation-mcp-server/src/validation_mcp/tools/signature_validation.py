@@ -4,7 +4,7 @@ Signature Validation Tools
 Implements validate_signature tool for ECDSA signature components.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 
 # secp256k1 curve order
@@ -182,7 +182,7 @@ def validate_signature_impl(v: int, r: str, s: str, strict: bool = True) -> dict
     }
 
 
-def register_signature_tools(server: FastMCP) -> None:
+def register_signature_tools(server: MCPServer) -> None:
     """Register signature validation tools with the MCP server."""
     
     @server.tool()

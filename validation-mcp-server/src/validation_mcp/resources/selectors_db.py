@@ -4,7 +4,7 @@ Function Selectors Database Resource
 Provides a database of common function selectors.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 
 SELECTORS_DATABASE = """
@@ -105,7 +105,7 @@ selector = 0xa9059cbb
 """
 
 
-def register_selectors_db_resources(server: FastMCP) -> None:
+def register_selectors_db_resources(server: MCPServer) -> None:
     """Register function selectors database resources."""
     
     @server.resource("validation://function-selectors-db")

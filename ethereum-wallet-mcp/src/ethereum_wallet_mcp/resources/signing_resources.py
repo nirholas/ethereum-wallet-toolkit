@@ -11,7 +11,7 @@ Resources provide static content that can be read by MCP clients for
 reference and learning purposes.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from mcp.types import Resource
 
 
@@ -774,7 +774,7 @@ def get_template(template_type: str) -> str:
 # Resource Registration
 # ============================================================================
 
-def register_signing_resources(server: Server) -> None:
+def register_signing_resources(server: MCPServer) -> None:
     """
     Register all signing-related resources with the MCP server.
     

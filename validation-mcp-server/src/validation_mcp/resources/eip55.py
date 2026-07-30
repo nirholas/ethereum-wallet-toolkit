@@ -4,7 +4,7 @@ EIP-55 Specification Resource
 Provides comprehensive EIP-55 checksum specification documentation.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 
 EIP55_SPECIFICATION = """
@@ -67,7 +67,7 @@ def to_checksum_address(address):
 """
 
 
-def register_eip55_resources(server: FastMCP) -> None:
+def register_eip55_resources(server: MCPServer) -> None:
     """Register EIP-55 specification resources."""
     
     @server.resource("validation://eip55-specification")

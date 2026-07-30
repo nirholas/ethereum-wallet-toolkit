@@ -88,7 +88,7 @@ export async function getNonceStore(redisUrl?: string): Promise<NonceStore> {
 
   if (redisUrl) {
     try {
-      const { default: Redis } = await import('ioredis');
+      const { Redis } = await import('ioredis');
       const redis = new Redis(redisUrl, {
         lazyConnect: true,
         retryStrategy: (times) => Math.min(times * 100, 3000),

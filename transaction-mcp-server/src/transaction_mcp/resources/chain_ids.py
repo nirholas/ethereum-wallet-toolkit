@@ -4,7 +4,7 @@ Chain IDs Resources
 Documentation about Ethereum chain IDs.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 CHAIN_IDS_CONTENT = """
@@ -108,7 +108,7 @@ Example:
 """
 
 
-def register_chain_resources(server: Server) -> None:
+def register_chain_resources(server: MCPServer) -> None:
     """Register chain ID documentation resources."""
     
     @server.resource("transaction://chains/ids")

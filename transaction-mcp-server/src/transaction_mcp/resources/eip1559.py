@@ -4,7 +4,7 @@ EIP-1559 Resources
 Documentation about EIP-1559 fee mechanics.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 EIP1559_CONTENT = """
@@ -194,7 +194,7 @@ Returns:
 """
 
 
-def register_eip1559_resources(server: Server) -> None:
+def register_eip1559_resources(server: MCPServer) -> None:
     """Register EIP-1559 documentation resources."""
     
     @server.resource("transaction://eip1559/overview")

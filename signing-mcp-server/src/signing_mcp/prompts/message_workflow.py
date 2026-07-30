@@ -2,10 +2,10 @@
 Message Signing Workflow Prompts
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_message_prompts(server: Server) -> None:
+def register_message_prompts(server: MCPServer) -> None:
     """Register message signing workflow prompts."""
     
     @server.prompt()

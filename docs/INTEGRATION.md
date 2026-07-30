@@ -350,7 +350,8 @@ async def generate_wallet():
 
 1. **Keep servers updated**
    ```bash
-   pip install --upgrade ethereum-wallet-toolkit
+   pip install --upgrade ethereum-wallet-mcp keystore-mcp-server \
+     signing-mcp-server transaction-mcp-server validation-mcp-server
    ```
 
 2. **Monitor for security updates**

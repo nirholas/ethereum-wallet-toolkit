@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional
 
 from eth_utils import keccak, to_checksum_address
 from eth_abi import encode
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -260,7 +260,7 @@ def decode_calldata_impl(calldata: str) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_encoding_tools(server: Server) -> None:
+def register_encoding_tools(server: MCPServer) -> None:
     """Register data encoding tools with the MCP server."""
     
     @server.tool()

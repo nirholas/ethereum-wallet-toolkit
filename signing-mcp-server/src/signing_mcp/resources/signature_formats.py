@@ -4,7 +4,7 @@ Signature Formats Resource
 Documentation on Ethereum signature formats and conventions.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 SIGNATURE_FORMATS = """
@@ -130,7 +130,7 @@ address = Account.recover_message(message, signature=sig)
 """
 
 
-def register_signature_format_resources(server: Server) -> None:
+def register_signature_format_resources(server: MCPServer) -> None:
     """Register signature format documentation resources."""
     
     @server.resource("signatures://formats")

@@ -14,41 +14,65 @@
     "url": "https://github.com/nirholas/ethereum-wallet-toolkit",
     "source": "github"
   },
-  "version": "0.1.0",
+  "websiteUrl": "https://github.com/nirholas/ethereum-wallet-toolkit",
+  "version": "1.0.0",
   "links": {
     "homepage": "https://github.com/nirholas/ethereum-wallet-toolkit",
     "bugs": "https://github.com/nirholas/ethereum-wallet-toolkit/issues",
-    "pypi": "https://pypi.org/project/ethereum-wallet-toolkit/"
+    "pypi": "https://pypi.org/project/ethereum-wallet-mcp/"
   },
   "icons": [
     {
-      "url": "https://raw.githubusercontent.com/nirholas/g1t/d9a0ee206b8136472c04384905999369f198b3c9/milady.svg",
-      "type": "svg"
+      "src": "https://raw.githubusercontent.com/nirholas/g1t/d9a0ee206b8136472c04384905999369f198b3c9/milady.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": ["any"]
     }
   ],
   "packages": [
     {
       "registryType": "pypi",
-      "identifier": "ethereum-wallet-toolkit",
-      "version": "0.1.0",
+      "identifier": "ethereum-wallet-mcp",
+      "version": "1.0.0",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"
-      },
-      "environmentVariables": [
-        {
-          "name": "RPC_URL",
-          "description": "Ethereum RPC endpoint URL",
-          "required": false,
-          "secret": false
-        },
-        {
-          "name": "PRIVATE_KEY",
-          "description": "Ethereum wallet private key",
-          "required": false,
-          "secret": true
-        }
-      ]
+      }
+    },
+    {
+      "registryType": "pypi",
+      "identifier": "keystore-mcp-server",
+      "version": "1.0.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
+    },
+    {
+      "registryType": "pypi",
+      "identifier": "signing-mcp-server",
+      "version": "1.0.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
+    },
+    {
+      "registryType": "pypi",
+      "identifier": "transaction-mcp-server",
+      "version": "1.0.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
+    },
+    {
+      "registryType": "pypi",
+      "identifier": "validation-mcp-server",
+      "version": "1.0.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
     }
   ],
   "_meta": {

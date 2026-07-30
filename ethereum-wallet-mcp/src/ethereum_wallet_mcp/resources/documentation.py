@@ -9,7 +9,7 @@ This module implements MCP resources providing documentation:
 Resources provide static content that can be read by MCP clients.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from mcp.types import Resource, TextContent
 
 # BIP39 wordlists - English only included inline, others loaded dynamically
@@ -20,7 +20,7 @@ SUPPORTED_LANGUAGES = [
 ]
 
 
-def register_documentation_resources(server: Server) -> None:
+def register_documentation_resources(server: MCPServer) -> None:
     """
     Register all documentation resources with the MCP server.
     

@@ -7,7 +7,7 @@ Tools for signature manipulation: decompose, compose, normalize.
 import re
 from typing import Any, Dict
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -224,7 +224,7 @@ def validate_signature_format_impl(signature: str) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_signature_utils(server: Server) -> None:
+def register_signature_utils(server: MCPServer) -> None:
     """Register signature utility tools with the MCP server."""
     
     @server.tool()

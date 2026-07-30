@@ -9,7 +9,7 @@ import uuid
 import secrets
 from typing import Literal, Optional, Dict, Any
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from eth_account import Account
 from eth_utils import to_checksum_address
 
@@ -177,7 +177,7 @@ def encrypt_keystore_impl(
 # Tool Registration
 # =============================================================================
 
-def register_encrypt_tools(server: Server) -> None:
+def register_encrypt_tools(server: MCPServer) -> None:
     """Register encryption tools with the MCP server."""
     
     @server.tool()

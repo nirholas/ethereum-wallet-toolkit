@@ -8,8 +8,7 @@ Ethereum keystore management functionality.
 import asyncio
 import logging
 
-from mcp.server import Server
-from mcp.server.stdio import stdio_server
+from mcp.server.mcpserver import MCPServer
 
 from .tools.encrypt import register_encrypt_tools
 from .tools.decrypt import register_decrypt_tools
@@ -31,14 +30,14 @@ logging.basicConfig(
 logger = logging.getLogger("keystore-mcp-server")
 
 
-def create_server() -> Server:
+def create_server() -> MCPServer:
     """
     Create and configure the MCP server with all tools, prompts, and resources.
     
     Returns:
-        Server: Configured MCP server instance
+        MCPServer: Configured MCP server instance
     """
-    server = Server("keystore-mcp-server")
+    server = MCPServer("keystore-mcp-server")
     
     # Register tools
     register_encrypt_tools(server)
@@ -68,14 +67,8 @@ def create_server() -> Server:
 async def run_server() -> None:
     """Run the MCP server using stdio transport."""
     server = create_server()
-    
-    async with stdio_server() as (read_stream, write_stream):
-        logger.info("Starting Keystore MCP Server...")
-        await server.run(
-            read_stream,
-            write_stream,
-            server.create_initialization_options()
-        )
+    logger.info("Starting Keystore MCP Server...")
+    await server.run_stdio_async()
 
 
 def main() -> None:

@@ -4,10 +4,10 @@ Keystore Specification Resource
 Provides Web3 Secret Storage V3 specification documentation.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_specification_resources(server: Server) -> None:
+def register_specification_resources(server: MCPServer) -> None:
     """Register specification resources with the MCP server."""
     
     @server.resource("keystore://specification")
@@ -173,7 +173,7 @@ UTC--2024-01-15T10-30-00.000Z--1234567890abcdef1234567890abcdef12345678
 
 ## References
 
-- [Web3 Secret Storage Definition](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition)
+- [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/)
 - [EIP-2335: BLS12-381 Keystore](https://eips.ethereum.org/EIPS/eip-2335)
 """
 

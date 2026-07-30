@@ -4,7 +4,7 @@ Checksum Conversion Tools
 Implements to_checksum_address tool.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from eth_utils import to_checksum_address as eth_to_checksum, keccak
 
 
@@ -98,7 +98,7 @@ verify_checksum_impl = to_checksum_impl
 is_checksum_address_impl = to_checksum_impl
 
 
-def register_checksum_tools(server: FastMCP) -> None:
+def register_checksum_tools(server: MCPServer) -> None:
     """Register checksum tools with the MCP server."""
     
     @server.tool()

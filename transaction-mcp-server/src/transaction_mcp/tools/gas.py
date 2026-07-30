@@ -6,7 +6,7 @@ Tools for gas estimation, conversion, and cost calculation.
 
 from typing import Any, Dict, Optional
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -216,7 +216,7 @@ def calculate_gas_for_data_impl(data: str) -> Dict[str, Any]:
 # Tool Registration
 # ============================================================================
 
-def register_gas_tools(server: Server) -> None:
+def register_gas_tools(server: MCPServer) -> None:
     """Register gas utility tools with the MCP server."""
     
     @server.tool()

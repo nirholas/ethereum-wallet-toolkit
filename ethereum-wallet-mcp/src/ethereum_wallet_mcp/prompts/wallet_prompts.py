@@ -10,11 +10,11 @@ These prompts provide step-by-step guidance for common wallet operations
 with embedded security best practices.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from mcp.types import Prompt, PromptMessage, TextContent, PromptArgument
 
 
-def register_wallet_prompts(server: Server) -> None:
+def register_wallet_prompts(server: MCPServer) -> None:
     """
     Register all wallet-related prompts with the MCP server.
     

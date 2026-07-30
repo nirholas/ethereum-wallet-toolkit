@@ -10,7 +10,7 @@ This document covers the keystore encryption and decryption features of the Ethe
 
 ## Overview
 
-Keystores are encrypted JSON files that securely store private keys. They follow the [Web3 Secret Storage Definition](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition) (Version 3) and are compatible with all major Ethereum wallets including MetaMask, Geth, and MyEtherWallet.
+Keystores are encrypted JSON files that securely store private keys. They follow the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/) (Version 3) and are compatible with all major Ethereum wallets including MetaMask, Geth, and MyEtherWallet.
 
 ## Security Model
 

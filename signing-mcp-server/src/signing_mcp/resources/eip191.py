@@ -4,7 +4,7 @@ EIP-191 Specification Resource
 Provides documentation on EIP-191 signed data standard.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 EIP191_SPECIFICATION = """
@@ -94,7 +94,7 @@ https://eips.ethereum.org/EIPS/eip-191
 """
 
 
-def register_eip191_resources(server: Server) -> None:
+def register_eip191_resources(server: MCPServer) -> None:
     """Register EIP-191 specification resources."""
     
     @server.resource("eip191://specification")

@@ -6,7 +6,7 @@ Implements get_keystore_info and validate_keystore MCP tools.
 
 import json
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from eth_utils import to_checksum_address
 
 from ..crypto.kdf import assess_kdf_strength
@@ -132,7 +132,7 @@ def validate_keystore_impl(keystore: dict | str, strict: bool = False) -> dict:
     return result
 
 
-def register_validation_tools(server: Server) -> None:
+def register_validation_tools(server: MCPServer) -> None:
     """Register validation tools with the MCP server."""
     
     @server.tool()

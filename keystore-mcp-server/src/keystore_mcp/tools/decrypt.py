@@ -9,7 +9,7 @@ import uuid
 import base64
 from typing import Any
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 from eth_account import Account
 from eth_utils import to_checksum_address
 
@@ -276,7 +276,7 @@ def change_keystore_password_impl(
         }
 
 
-def register_decrypt_tools(server: Server) -> None:
+def register_decrypt_tools(server: MCPServer) -> None:
     """Register decryption tools with the MCP server."""
     
     @server.tool()

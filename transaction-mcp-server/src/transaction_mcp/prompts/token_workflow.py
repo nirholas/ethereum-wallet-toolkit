@@ -4,10 +4,10 @@ Token Transfer Workflow Prompts
 Guided prompts for ERC-20 token operations.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_token_prompts(server: Server) -> None:
+def register_token_prompts(server: MCPServer) -> None:
     """Register token workflow prompts."""
     
     @server.prompt()

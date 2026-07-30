@@ -22,7 +22,7 @@ from dataclasses import dataclass, asdict
 from eth_account import Account
 from eth_account.messages import encode_defunct
 from eth_utils import to_checksum_address, is_hex, keccak
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 # ============================================================================
@@ -260,7 +260,7 @@ def _extract_message_hash(signed) -> str:
 # Tool Registration
 # ============================================================================
 
-def register_signing_tools(server: Server) -> None:
+def register_signing_tools(server: MCPServer) -> None:
     """
     Register all signing tools with the MCP server.
     

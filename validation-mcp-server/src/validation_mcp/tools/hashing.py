@@ -5,7 +5,7 @@ Implements keccak256_hash tool.
 """
 
 import base64
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from eth_utils import keccak
 
 
@@ -80,7 +80,7 @@ def compute_keccak256_impl(
         }
 
 
-def register_hashing_tools(server: FastMCP) -> None:
+def register_hashing_tools(server: MCPServer) -> None:
     """Register hashing tools with the MCP server."""
     
     @server.tool()

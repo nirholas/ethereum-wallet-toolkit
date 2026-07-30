@@ -4,10 +4,10 @@ Keystore Backup Prompts
 Provides guided prompts for secure wallet backup procedures.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_backup_prompts(server: Server) -> None:
+def register_backup_prompts(server: MCPServer) -> None:
     """Register backup prompts with the MCP server."""
     
     @server.prompt("secure_wallet_backup")

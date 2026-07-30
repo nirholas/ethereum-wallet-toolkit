@@ -4,11 +4,11 @@ Validation Workflow Prompts
 Provides guided workflows for address validation.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from mcp.types import Prompt, PromptMessage, TextContent
 
 
-def register_validation_prompts(server: FastMCP) -> None:
+def register_validation_prompts(server: MCPServer) -> None:
     """Register validation workflow prompts."""
     
     @server.prompt()

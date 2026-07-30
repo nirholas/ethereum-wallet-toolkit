@@ -22,7 +22,7 @@ from eth_account import Account
 from eth_account.hdaccount import ETHEREUM_DEFAULT_PATH
 from eth_keys import keys
 from eth_utils import is_hex, to_checksum_address
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 # Enable HD wallet features in eth-account
 Account.enable_unaudited_hdwallet_features()
@@ -317,7 +317,7 @@ def _word_count_to_entropy_bits(word_count: int) -> int:
 # Tool Registration
 # ============================================================================
 
-def register_wallet_tools(server: Server) -> None:
+def register_wallet_tools(server: MCPServer) -> None:
     """
     Register all wallet generation tools with the MCP server.
     

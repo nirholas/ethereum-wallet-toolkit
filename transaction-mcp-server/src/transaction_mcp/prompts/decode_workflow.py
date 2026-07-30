@@ -4,10 +4,10 @@ Transaction Decode Workflow Prompts
 Guided prompts for transaction analysis.
 """
 
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
-def register_decode_prompts(server: Server) -> None:
+def register_decode_prompts(server: MCPServer) -> None:
     """Register transaction decode workflow prompts."""
     
     @server.prompt()

@@ -5,7 +5,7 @@ Common EIP-712 typed data templates for DeFi operations.
 """
 
 import json
-from mcp.server import Server
+from mcp.server.mcpserver import MCPServer
 
 
 PERMIT_TEMPLATE = {
@@ -157,7 +157,7 @@ DEX_ORDER_TEMPLATE = {
 }
 
 
-def register_template_resources(server: Server) -> None:
+def register_template_resources(server: MCPServer) -> None:
     """Register typed data template resources."""
     
     @server.resource("templates://permit")

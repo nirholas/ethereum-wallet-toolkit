@@ -4,11 +4,11 @@ Encoding Helper Prompts
 Provides guided workflows for encoding/decoding Ethereum data.
 """
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from mcp.types import PromptMessage, TextContent
 
 
-def register_encoding_prompts(server: FastMCP) -> None:
+def register_encoding_prompts(server: MCPServer) -> None:
     """Register encoding helper prompts."""
     
     @server.prompt()

@@ -29,7 +29,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 dependencies = [
-    "mcp>=1.0.0",
+    "mcp>=2.0.0",
     "eth-account>=0.10.0",
     "eth-utils>=2.0.0",
     "eth-abi>=4.0.0"
