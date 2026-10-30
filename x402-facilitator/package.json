@@ -42,7 +42,7 @@
     "hono": "^4.13.13",
     "lru-cache": "^11.2.7",
     "viem": "^2.21.0",
-    "zod": "^3.23.0"
+    "zod": "^4.6.6"
   },
   "optionalDependencies": {
     "ioredis": "^5.4.1"
