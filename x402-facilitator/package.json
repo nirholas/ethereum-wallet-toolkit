@@ -37,7 +37,7 @@
     "sourcemap": true
   },
   "dependencies": {
-    "@hono/node-server": "^1.13.0",
+    "@hono/node-server": "^1.19.15",
     "@hono/zod-validator": "^0.7.6",
     "hono": "^4.13.13",
     "lru-cache": "^11.2.7",
