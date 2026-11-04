@@ -69,6 +69,8 @@ This repository includes 5 Model Context Protocol (MCP) servers that expose Ethe
 
 ## Documentation
 
+Documentation site: **https://ethereum-wallet-toolkit.modelcontextprotocol.name** (deployment steps in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))
+
 - **[Prompt Examples](docs/PROMPT_EXAMPLES.md)** - Real-world prompts for interacting with the servers
 - **[Testing Guide](docs/TESTING.md)** - How to run and write tests
 - **[Integration Guide](docs/INTEGRATION.md)** - Setting up with Claude Desktop and other tools
