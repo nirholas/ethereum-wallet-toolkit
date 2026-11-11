@@ -1,0 +1,23 @@
+{
+  "name": "ethereum-wallet-toolkit",
+  "owner": {
+    "name": "nirholas"
+  },
+  "description": "Ethereum wallet generation, HD derivation, vanity addresses and EIP-191/EIP-712 signing as an MCP server.",
+  "plugins": [
+    {
+      "name": "ethereum-wallet-toolkit",
+      "source": "./plugins/ethereum-wallet-toolkit",
+      "description": "Ethereum wallet generation, HD derivation, vanity addresses and EIP-191/EIP-712 signing as an MCP server.",
+      "category": "development",
+      "tags": [
+        "ethereum",
+        "wallet",
+        "mcp",
+        "signing",
+        "eip-712",
+        "hd-wallet"
+      ]
+    }
+  ]
+}
